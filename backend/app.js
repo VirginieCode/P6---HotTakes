@@ -2,8 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/user');
 
-
-
+const sauceRoutes = require ('./routes/sauces')
+const path = require('path');
 
 mongoose.connect('mongodb+srv://VirginieD:ForTest@cluster0.mdkm33h.mongodb.net/?retryWrites=true&w=majority',
   { useNewUrlParser: true,
@@ -11,7 +11,7 @@ mongoose.connect('mongodb+srv://VirginieD:ForTest@cluster0.mdkm33h.mongodb.net/?
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-  const path = require('path');
+
 
 
 const app = express();
@@ -26,27 +26,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post('/api/sauces', (req, res, next) => {
-  console.log(req.body);
-  res.status(201).json({
-    message: 'Sauce créé !'
-  });
-});
-
-app.get('/api/sauces', (req, res, next) => {
-  const sauce = [
-    {
-     
-      name: 'Mon premier objet',
-      description: 'Les infos de mon premier objet',
-      imageUrl: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',
-      userId: 'qsomihvqios',
-    }
-  ];
-  res.status(200).json(sauce);
-});
 
 app.use('/api/auth', userRoutes);
+app.use('/api/sauces', sauceRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;
