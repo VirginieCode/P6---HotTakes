@@ -5,7 +5,10 @@ const userRoutes = require('./routes/user');
 const sauceRoutes = require ('./routes/sauces')
 const path = require('path');
 
-mongoose.connect('mongodb+srv://VirginieD:ForTest@cluster0.mdkm33h.mongodb.net/?retryWrites=true&w=majority',
+const dotenv = require('dotenv').config();
+console.log(dotenv.parsed)
+
+mongoose.connect(process.env.MONGODB_URI,
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
