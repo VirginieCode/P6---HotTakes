@@ -1,5 +1,7 @@
 const Sauce = require("../models/Sauce");
-const fs = require("fs");
+const fs = require("fs"); //file system, accès aux fonctions pour de modifier le système de fichiers et supprimer les fichiers
+
+//Pour creer une sauce
 
 exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
@@ -22,6 +24,7 @@ exports.createSauce = (req, res, next) => {
       res.status(400).json({ error });
     });
 };
+//Pour afficher une sauce
 
 exports.getOneSauce = (req, res, next) => {
   Sauce.findOne({
@@ -36,6 +39,8 @@ exports.getOneSauce = (req, res, next) => {
       });
     });
 };
+
+//Pour modifier une sauce
 
 exports.modifySauce = (req, res, next) => {
   const sauceObject = req.file
@@ -66,6 +71,8 @@ exports.modifySauce = (req, res, next) => {
     });
 };
 
+  //Pour supprimer une sauce
+
 exports.deleteSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => {
@@ -87,6 +94,8 @@ exports.deleteSauce = (req, res, next) => {
     });
 };
 
+  //Pour afficher toutes les sauces
+
 exports.getAllSauce = (req, res, next) => {
   Sauce.find()
     .then((sauces) => {
@@ -98,6 +107,8 @@ exports.getAllSauce = (req, res, next) => {
       });
     });
 };
+
+  //Pour liker et disliker une sauce
 
 exports.likedSauce = (req, res, next) => {
   console.log("like");

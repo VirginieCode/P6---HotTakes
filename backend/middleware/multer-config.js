@@ -1,3 +1,5 @@
+//Multer de gérer les fichiers entrants dans les requêtes HTTP
+
 const multer = require('multer');
 
 const MIME_TYPES = {
@@ -6,12 +8,12 @@ const MIME_TYPES = {
   'image/png': 'png'
 };
 
-const storage = multer.diskStorage({
+const storage = multer.diskStorage({ //Où est ce que les fichiers entrant vont être stocker
   destination: (req, file, callback) => {
-    callback(null, 'images');
+    callback(null, 'images'); //Dans le dossier images
   },
   filename: (req, file, callback) => {
-    const name = file.originalname.split(' ').join('_');
+    const name = file.originalname.split(' ').join('_'); //Remplacement des espaces par des underscores
     const extension = MIME_TYPES[file.mimetype];
     callback(null, name + Date.now() + '.' + extension);
   }
